@@ -1,0 +1,33 @@
+extends Area2D
+
+var sprite_size
+var screen_size 
+var direction = 0
+var speed = 100
+
+# Called when the node enters the scene tree for the first time.
+func _ready():
+	sprite_size = $Sprite2D.texture.get_size()
+	screen_size = get_viewport_rect().size
+	position.y = screen_size.y - sprite_size.y / 2
+	position.x = screen_size.x / 2
+
+
+# Called every frame. 'delta' is the elapsed time since the previous frame.
+func _process(delta):
+	handle_input()
+	position.x += direction * speed * delta
+	
+func handle_input():
+	if Input.is_action_pressed("ui_left") and collide_left_side():
+		direction = -1
+	elif Input.is_action_pressed("ui_right") and collide_right_side():
+		direction = 1
+	else:
+		direction = 0
+
+func collide_left_side():
+	return position.x - (sprite_size.x / 2 + 5) > 0
+	
+func collide_right_side():
+	return position.x + sprite_size.x / 2 + 5 < screen_size.x

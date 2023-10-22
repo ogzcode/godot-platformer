@@ -1,0 +1,51 @@
+[gd_scene load_steps=9 format=3 uid="uid://cd8thlkewflc2"]
+
+[ext_resource type="Texture2D" uid="uid://b433eqtgaugnb" path="res://ball.svg" id="1_hbyfo"]
+[ext_resource type="Script" path="res://Ball.gd" id="2_qwlrm"]
+[ext_resource type="Texture2D" uid="uid://bm1ss0px8l36v" path="res://paddle.svg" id="3_ertnk"]
+[ext_resource type="Script" path="res://PaddlePlayer.gd" id="4_me0o5"]
+[ext_resource type="Script" path="res://PaddleAi.gd" id="5_hjxv0"]
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_76pym"]
+radius = 16.0312
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_cx0hv"]
+size = Vector2(128, 32)
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_lydv1"]
+size = Vector2(128, 32)
+
+[node name="Main" type="Node2D"]
+
+[node name="Ball" type="Area2D" parent="."]
+position = Vector2(225, 295)
+script = ExtResource("2_qwlrm")
+
+[node name="Sprite2D" type="Sprite2D" parent="Ball"]
+texture = ExtResource("1_hbyfo")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Ball"]
+shape = SubResource("CircleShape2D_76pym")
+
+[node name="PaddlePlayer" type="Area2D" parent="."]
+position = Vector2(209, 500)
+script = ExtResource("4_me0o5")
+
+[node name="Sprite2D" type="Sprite2D" parent="PaddlePlayer"]
+texture = ExtResource("3_ertnk")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="PaddlePlayer"]
+shape = SubResource("RectangleShape2D_cx0hv")
+
+[node name="PaddleAi" type="Area2D" parent="."]
+position = Vector2(209, 48)
+script = ExtResource("5_hjxv0")
+
+[node name="Sprite2D" type="Sprite2D" parent="PaddleAi"]
+texture = ExtResource("3_ertnk")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="PaddleAi"]
+shape = SubResource("RectangleShape2D_lydv1")
+
+[connection signal="area_entered" from="PaddlePlayer" to="Ball" method="_on_paddle_player_area_entered"]
+[connection signal="area_entered" from="PaddleAi" to="Ball" method="_on_paddle_ai_area_entered"]
