@@ -9,9 +9,6 @@ var speed = 100
 func _ready():
 	sprite_size = $Sprite2D.texture.get_size()
 	screen_size = get_viewport_rect().size
-	position.y = screen_size.y - sprite_size.y / 2
-	position.x = screen_size.x / 2
-
 
 # Called every frame. 'delta' is the elapsed time since the previous frame.
 func _process(delta):
@@ -27,7 +24,9 @@ func handle_input():
 		direction = 0
 
 func collide_left_side():
-	return position.x - (sprite_size.x / 2 + 5) > 0
+	#Since the sprite is rotated 90 degrees
+	return position.x - (sprite_size.y / 2 + 5) > 0
 	
 func collide_right_side():
-	return position.x + sprite_size.x / 2 + 5 < screen_size.x
+	#Since the sprite is rotated 90 degrees
+	return position.x + sprite_size.y / 2 + 5 < screen_size.x
