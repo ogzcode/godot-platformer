@@ -1,6 +1,7 @@
-[gd_scene load_steps=11 format=3 uid="uid://cd8thlkewflc2"]
+[gd_scene load_steps=12 format=3 uid="uid://cd8thlkewflc2"]
 
 [ext_resource type="Texture2D" uid="uid://jgrhfy6wga8y" path="res://arts/Board.png" id="1_8p54g"]
+[ext_resource type="Script" path="res://main.gd" id="1_ohig0"]
 [ext_resource type="Script" path="res://Ball.gd" id="2_qwlrm"]
 [ext_resource type="Texture2D" uid="uid://510oamap83j4" path="res://arts/Ball.png" id="2_s0cwn"]
 [ext_resource type="Texture2D" uid="uid://b4a4xtvlcx7tm" path="res://arts/Player.png" id="4_ma5j2"]
@@ -18,9 +19,10 @@ size = Vector2(121, 17)
 size = Vector2(120, 16)
 
 [node name="Main" type="Node2D"]
+script = ExtResource("1_ohig0")
 
 [node name="Background" type="Sprite2D" parent="."]
-position = Vector2(240.998, 319.999)
+position = Vector2(241, 320)
 rotation = 1.5708
 scale = Vector2(0.799698, 1.05637)
 texture = ExtResource("1_8p54g")
@@ -59,5 +61,38 @@ texture = ExtResource("6_d4gqy")
 [node name="CollisionShape2D" type="CollisionShape2D" parent="PaddleAi"]
 shape = SubResource("RectangleShape2D_lydv1")
 
+[node name="AiScore" type="Label" parent="."]
+offset_right = 22.0
+offset_bottom = 26.0
+theme_override_font_sizes/font_size = 20
+text = "0"
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="PlayerScore" type="Label" parent="."]
+offset_top = 608.0
+offset_right = 22.0
+offset_bottom = 639.0
+theme_override_font_sizes/font_size = 20
+text = "0"
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="Timer" type="Timer" parent="."]
+wait_time = 2.0
+one_shot = true
+
+[node name="GoalText" type="Label" parent="."]
+offset_left = 203.0
+offset_top = 293.0
+offset_right = 282.0
+offset_bottom = 346.0
+theme_override_font_sizes/font_size = 36
+text = "Goal"
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[connection signal="ball_left_screen" from="Ball" to="." method="_on_ball_ball_left_screen"]
 [connection signal="area_entered" from="PaddlePlayer" to="Ball" method="_on_paddle_player_area_entered"]
 [connection signal="area_entered" from="PaddleAi" to="Ball" method="_on_paddle_ai_area_entered"]
+[connection signal="timeout" from="Timer" to="." method="_on_timer_timeout"]
