@@ -2,8 +2,7 @@ extends Area2D
 
 var sprite_size
 var screen_size 
-var direction = 0
-var speed = 90
+var speed = 100
 var ball
 
 func _ready():
@@ -14,5 +13,7 @@ func _ready():
 func _process(delta):
 	var ballX = ball.position.x
 	var newPosition = clamp(ballX, sprite_size.y / 2, screen_size.x - sprite_size.y / 2)
-	position.x = newPosition
+	var distanceToTarget = float(newPosition - position.x)
+	var movement = sign(distanceToTarget) * min(abs(distanceToTarget), speed * delta)
+	position.x += movement
 	
