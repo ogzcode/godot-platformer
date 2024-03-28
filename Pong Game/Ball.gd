@@ -43,10 +43,13 @@ func collide_screen():
 
 func _on_paddle_player_area_entered(area):
 	direction.y *= -1
+	speed += 5
 
 
 func _on_paddle_ai_area_entered(area):
 	direction.y *= -1
+	speed += 5
 	
 func reset_ball_pos():
 	position = screen_size / 2
+	speed = 100
